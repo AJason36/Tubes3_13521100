@@ -11,7 +11,7 @@ resources/.arch-internal-preview.css
 
 # dependencies
 /node_modules
-/.vscode
+**/.vscode
 /.pnp
 .pnp.js
 
@@ -40,3 +40,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# prisma
+gpt-1/.env
