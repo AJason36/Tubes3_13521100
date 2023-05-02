@@ -168,6 +168,10 @@ const mathParser = function (expr: string): number {
 
     // remaining operator
     while (operatorStack.size) {
+        if (operatorStack.top === "(")
+            throw Error("Wrong brace placement")
+        if (getType(operatorStack.top) in [2, 5] === false)
+            throw Error("Wrong format")
         postfix.push(operatorStack.top)
         operatorStack.pop()
     }
@@ -198,5 +202,11 @@ const mathParser = function (expr: string): number {
     return numberStack.top;
 };
 
-// mathParser("3+2*3+3")
+// console.log(mathParser("3+2*3+3"))
+// console.log(mathParser("5*(5+5)"))
+// console.log(mathParser("5/(3+1)"))
+// console.log(mathParser("5-3-1-1"))
+// console.log(mathParser("2^(12-3*3)"))
+// console.log(mathParser("2 ^ (12-3*3)"))
+// console.log(mathParser("2 ^ (-2)"))
 export default mathParser
