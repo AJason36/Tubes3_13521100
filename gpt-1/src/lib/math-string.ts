@@ -99,6 +99,7 @@ const mathParser = function (expr: string): number {
 
     for (let i = 0; i < expr.length; i++) {
         let c = expr.charAt(i)
+        if (c.trim() === "") continue
 
         let newState = transition.get(state)?.get(getType(c))
         if (newState === undefined) 
