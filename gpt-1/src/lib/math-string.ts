@@ -166,7 +166,8 @@ const mathParser = function (expr: string): number {
     
     for (let i = 0; i < postfix.length; i++) {
         if (typeof(postfix[i]) === "number") {
-            numberStack.push(postfix[i])
+            // typecast done to suppress warning
+            numberStack.push(Number(postfix[i]))
         }
         else if (typeof(postfix[i]) === "string") {
             let b = numberStack.top
