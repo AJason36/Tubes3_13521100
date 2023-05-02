@@ -37,11 +37,12 @@ const mathParser = function (expr: string): number {
     
     /**
      * States mainly used for number processing
-     * - 0: currently not processing number
+     * - 0: after operator
      * - 1: processing integer
      * - 2: decimal point
      * - 3: processing number after decimal point
-     * - 4: after closing brace
+     * - 4: negative sign before number
+     * - 20: after closing brace
      * - -1: error
      */
     let state = 0;
@@ -50,16 +51,18 @@ const mathParser = function (expr: string): number {
      * types are used to simplify transition
      * - 0: number
      * - 1: dot
-     * - 2: operation TODO except negative
+     * - 2: operation except negative
      * - 3: open brace
      * - 4: close brace
+     * - 5: negative
      */
     const getType = function(c: string): number {
         if (c.length !== 1) throw Error("getType argument must have length of 1")
         if (c === '.') return 1
-        if (c === '+' || c === '-' || c === '*' || c === '/' || c === '^') return 2;
+        if (c === '+' || c === '*' || c === '/' || c === '^') return 2;
         if (c === '(') return 3;
         if (c === ')') return 4;
+        if (c === '-') return 5;
         if ('0'.charCodeAt(0) <= c.charCodeAt(0) && c.charCodeAt(0) <= '9'.charCodeAt(0)) return 0;
         throw Error("Character " + c + " unknown")
     }
@@ -68,27 +71,36 @@ const mathParser = function (expr: string): number {
         [0, new Map([
             [0, 1],
             [1, 2],
-            [3, 0]
+            [3, 0],
+            [5, 4]
         ])],
         [1, new Map([
             [0, 1],
             [1, 2],
             [2, 0],
-            [4, 4]
+            [4, 20],
+            [5, 0]
         ])],
         [2, new Map([
             [0, 3],
             [2, 0],
-            [4, 4]
+            [4, 20],
+            [5, 0]
         ])],
         [3, new Map([
             [0, 3],
             [2, 0],
-            [4, 4]
+            [4, 20],
+            [5, 0]
         ])],
         [4, new Map([
+            [0, 1],
+            [1, 2]
+        ])],
+        [20, new Map([
             [2, 0],
-            [4, 4]
+            [4, 20],
+            [5, 0]
         ])]
     ]);
     
@@ -105,7 +117,7 @@ const mathParser = function (expr: string): number {
         if (newState === undefined) 
             throw Error("Error while parsing expr (symbol " + c + ", index " + i + ")") 
         
-        if (newState === 0 || newState === 4) {
+        if (newState === 0 || newState === 20) {
             /* Masukkan data */
 
             /* Number */
@@ -113,7 +125,7 @@ const mathParser = function (expr: string): number {
                 postfix.push(Number.parseFloat(currentVal))
             currentVal = ""
             
-            if (getType(c) === 2) {
+            if (getType(c) === 2 || getType(c) === 5) {
                 /* Operator */
                 let currentPred = predecence.get(c)
                 if (currentPred === undefined) throw Error("Unknown error")
