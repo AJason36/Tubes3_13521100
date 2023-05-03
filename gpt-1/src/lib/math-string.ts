@@ -78,27 +78,31 @@ const mathParser = function (expr: string): number {
             [0, 1],
             [1, 2],
             [2, 0],
+            [3, 0],
             [4, 20],
             [5, 0]
         ])],
         [2, new Map([
             [0, 3],
             [2, 0],
+            [3, 0],
             [4, 20],
             [5, 0]
         ])],
         [3, new Map([
             [0, 3],
             [2, 0],
+            [3, 0],
             [4, 20],
             [5, 0]
         ])],
         [4, new Map([
             [0, 1],
-            [1, 2]
+            [1, 2],
         ])],
         [20, new Map([
             [2, 0],
+            [3, 0],
             [4, 20],
             [5, 0]
         ])]
@@ -143,6 +147,10 @@ const mathParser = function (expr: string): number {
                 operatorStack.push(c)
             }
             else if (getType(c) === 3) {
+                if ((1 <= state && state <= 3) || state === 20) {
+                    // implicit multiplication
+                    operatorStack.push("*");
+                }
                 operatorStack.push("(")
             }
             else if (getType(c) === 4) {
@@ -170,7 +178,7 @@ const mathParser = function (expr: string): number {
     while (operatorStack.size) {
         if (operatorStack.top === "(")
             throw Error("Wrong brace placement")
-        if (getType(operatorStack.top) in [2, 5] === false)
+        if (![2,5].includes(getType(operatorStack.top)))
             throw Error("Wrong format")
         postfix.push(operatorStack.top)
         operatorStack.pop()
@@ -209,4 +217,6 @@ const mathParser = function (expr: string): number {
 // console.log(mathParser("2^(12-3*3)"))
 // console.log(mathParser("2 ^ (12-3*3)"))
 // console.log(mathParser("2 ^ (-2)"))
+// console.log(mathParser("3(3+1/3)"))
+// console.log(mathParser("(5^2)(2--3)"))
 export default mathParser
