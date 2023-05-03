@@ -1,5 +1,6 @@
-import { db } from "../../../../lib/db";
+import { db } from "lib/db";
 
+// Delete Question
 // Contoh Cara Manggil:
 // const question = "Ini Pertanyaan?";
 // const encoded = encodeURIComponent(question);
