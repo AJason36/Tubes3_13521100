@@ -24,5 +24,6 @@ model ChatMessage {
 
 model ChatSession {
   id       String        @id @default(uuid())
+  name     String        @unique
   messages ChatMessage[]
 }

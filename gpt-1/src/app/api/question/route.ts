@@ -29,13 +29,13 @@ export async function POST(req: Request) {
     // Database Query
     try {
         await db.question.create({
-          data: {
-            question: question,
-            answer: answer,
-          },
+            data: {
+                question: question,
+                answer: answer,
+            },
         });
 
-        return new Response(JSON.stringify({ response: "Pertanyaan berhasil ditambahkan" }));
+        return new Response(JSON.stringify({ message: "Pertanyaan berhasil ditambahkan" }));
     } catch (e: any) {
         if (e.code === "P2002") {
             // Unique Constraint Error
