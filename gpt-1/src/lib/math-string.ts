@@ -41,7 +41,8 @@ const mathParser = function (expr: string): number {
      * - 1: processing integer
      * - 2: decimal point
      * - 3: processing number after decimal point
-     * - 4: negative sign before number
+     * - 4: sign before number
+     * - 5: leading dot (current number . or -.)
      * - 20: after closing brace
      * - -1: error
      */
@@ -59,10 +60,10 @@ const mathParser = function (expr: string): number {
     const getType = function(c: string): number {
         if (c.length !== 1) throw Error("getType argument must have length of 1")
         if (c === '.') return 1
-        if (c === '+' || c === '*' || c === '/' || c === '^') return 2;
+        if (c === '*' || c === '/' || c === '^') return 2;
         if (c === '(') return 3;
         if (c === ')') return 4;
-        if (c === '-') return 5;
+        if (c === '+' || c === '-') return 5;
         if ('0'.charCodeAt(0) <= c.charCodeAt(0) && c.charCodeAt(0) <= '9'.charCodeAt(0)) return 0;
         throw Error("Character " + c + " unknown")
     }
@@ -70,7 +71,7 @@ const mathParser = function (expr: string): number {
     let transition = new Map([
         [0, new Map([
             [0, 1],
-            [1, 2],
+            [1, 5],
             [3, 0],
             [5, 4]
         ])],
@@ -98,7 +99,10 @@ const mathParser = function (expr: string): number {
         ])],
         [4, new Map([
             [0, 1],
-            [1, 2],
+            [1, 5],
+        ])],
+        [5, new Map([
+            [0, 3]
         ])],
         [20, new Map([
             [2, 0],
@@ -219,4 +223,6 @@ const mathParser = function (expr: string): number {
 // console.log(mathParser("2 ^ (-2)"))
 // console.log(mathParser("3(3+1/3)"))
 // console.log(mathParser("(5^2)(2--3)"))
+// console.log(mathParser("0-+5"))
+// console.log(mathParser("5"))
 export default mathParser
