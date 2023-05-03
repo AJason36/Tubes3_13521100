@@ -21,7 +21,6 @@ function getMostSimilarString(input: string, data: string[]) {
     // Create a priority queue to sort the strings by similarity
     const pq = new MaxPriorityQueue<PQItem>();
     for (const string of data) {
-        // Ganti line ini kalau udah jadi string comparenya
         var similarity: number = levenshteinSimilarity(input.toLowerCase(), string.toLowerCase());
         pq.enqueue({ string, similarity });
     }
