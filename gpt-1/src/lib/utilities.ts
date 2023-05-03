@@ -1,5 +1,5 @@
 import { MaxPriorityQueue } from "@datastructures-js/priority-queue";
-import { compareTwoStrings } from "string-similarity";
+import { levenshteinSimilarity } from "./string-similarity";
 
 type PQItem = {
     // Container for the priority queue item
@@ -22,7 +22,7 @@ function getMostSimilarString(input: string, data: string[]) {
     const pq = new MaxPriorityQueue<PQItem>();
     for (const string of data) {
         // Ganti line ini kalau udah jadi string comparenya
-        var similarity: number = compareTwoStrings(input.toLowerCase(), string.toLowerCase());
+        var similarity: number = levenshteinSimilarity(input.toLowerCase(), string.toLowerCase());
         pq.enqueue({ string, similarity });
     }
 
