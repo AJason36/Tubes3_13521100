@@ -1,5 +1,6 @@
-import { db } from "../../../lib/db";
+import { db } from "lib/db";
 
+// Get All Questions
 // Contoh Cara Manggil:
 // const response = await fetch('/api/question', {
 //     method: 'GET',
@@ -7,11 +8,11 @@ import { db } from "../../../lib/db";
 export async function GET(req: Request) {
     // Database Query
     const questions = await db.question.findMany();
-    // console.log(questions)
 
     return new Response(JSON.stringify(questions));
 }
 
+// Create New Question
 // Contoh Cara Manggil:
 // const response = await fetch('/api/question', {
 //     method: 'POST',
