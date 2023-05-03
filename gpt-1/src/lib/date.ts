@@ -2,9 +2,7 @@
  * 
  * @param date string, format = 'DD-MM-YYYY or DD/MM/YYYY'
  */
-const getDayFromDate = function(date: string): string {
-    let arr = date.match(/(\d+)[-\/](\d+)[-\/](\d+)/)
-
+export const getDayFromDate = function(arr: any): string {
     let days = [
         "Minggu",
         "Senin",
