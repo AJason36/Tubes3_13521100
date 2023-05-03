@@ -3,15 +3,12 @@ import { db } from "lib/db";
 // Delete Question
 // Contoh Cara Manggil:
 // const question = "Ini Pertanyaan?";
-// const encoded = encodeURIComponent(question);
-
-// const response = await fetch(`/api/question/${encoded}`, {
+// const response = await fetch(`/api/question/${encodeURIComponent(question)}`, {
 //     method: 'DELETE',
 // });
 export async function DELETE(req: Request, { params, }: { params: { question: string }; }) {
-    // JSON Parsing from Request Body
+    // Get Question from params
     const question = params.question;
-    console.log(question);
 
     // Empty Validation
     if (!question) return new Response(JSON.stringify({ message: "Pertanyaan tidak boleh kosong" }))
@@ -36,5 +33,5 @@ export async function DELETE(req: Request, { params, }: { params: { question: st
         },
     });
 
-    return new Response(JSON.stringify({ response: "Pertanyaan berhasil dihapus" }));
+    return new Response(JSON.stringify({ message: "Pertanyaan berhasil dihapus" }));
 }
