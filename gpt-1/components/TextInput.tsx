@@ -1,18 +1,46 @@
 import React, { useState, useEffect } from "react";
-import Send from "./button/Send";
 import Image from "next/image";
+import { ChatBubbleMessage } from "types";
+import { classifyInputMessage } from "lib/queryClassifier";
 
 
-
-const TextInput = () => {
-  const handleSubmit = (e:any)=> {
+const TextInput = (
+  { setChatBubbles }: { setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>> }
+) => {
+  const handleSubmit = async (e: any)=> {
     e.preventDefault();
-    var formData = new FormData(e.target);
-    const form_values = Object.fromEntries(formData);
-    console.log('form values', form_values);
-    e.value = "";
+    const message = Object.fromEntries(new FormData(e.target)).question.toString();
+
+    var classifierResponse = classifyInputMessage(message);
+    
+    var response;
+    switch (classifierResponse.type) {
+      case "addQuestion":
+        response = await fetch("/api/question", {
+          method: "POST",
+          body: JSON.stringify({ question: classifierResponse.question, answer: classifierResponse.answer }),
+        })
+        break;
+      case "deleteQuestion":
+        response = await fetch(`/api/question/${encodeURIComponent(classifierResponse.question)}`, {
+          method: "DELETE",
+        })
+        break;
+      case "date":
+      case "falseDate":
+      case "math":
+      case "falseMath":
+        response = new Response(JSON.stringify({ message: classifierResponse.answer }));
+        break;
+      default:
+        response = new Response(JSON.stringify({ message: "Pertanyaan tidak dapat diproses" }))
+    }
+
+    console.log(await response.json());
   }
+
   const [question, setQuestion] = useState("");
+
   return (
     <>
       <div className="absolute top-[38.75rem] left-[3rem] text-silver">
@@ -30,7 +58,6 @@ const TextInput = () => {
             }
             />
           </div>
-          {/* <Send />  */}
           <div className="absolute top-3 left-[68rem] w-[3.75rem] h-[3.75rem] ">
           <button className="absolute rounded-[10px] top-[0px] left-[0px] w-[2.5rem] h-[2.5rem] hover:bg-gray-600"
                   type="submit">
