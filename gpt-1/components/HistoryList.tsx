@@ -11,7 +11,7 @@ const HistoryList = ({sessions, setSessions}: { sessions: ChatSession[], setSess
       <NewChat setSessions={setSessions} />
       <div className="flex flex-col items-start justify-start gap-[10px] text-[1.5rem]">
         <div className="relative font-medium">Chat List</div>
-        <div className="flex flex-col items-start w-[100%] max-h-[55%] justify-start gap-[2rem] text-[0.75rem] text-lightgray-200 overflow-y-auto space-y-1 scrollbar-hide">
+        <div className="flex flex-col items-start w-[100%] min-h-[20vh] max-h-[40vh] justify-start gap-[2rem] text-[0.75rem] text-lightgray-200 overflow-y-auto space-y-1 scrollbar-hide">
           {sessions.map((session, index) => (
             <ChatHistory key={index} id={session.id} title={session.name} setSessions={setSessions} />
           ))}
