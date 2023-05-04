@@ -1,9 +1,12 @@
+import { ClassifierResponse } from "types";
 import { getDayFromDate } from "./date";
+import mathParser from "./math-string";
 
-export const classifyInputMessage = function(message: String) {
+export const classifyInputMessage = function(message: string): ClassifierResponse {
     const addQuestionPattern: RegExp = /^tambahkan pertanyaan (.+) dengan jawaban (.+)$/i;
     const deleteQuestionPattern: RegExp = /^hapus pertanyaan (.+)$/i;
     const datePattern: RegExp = /(\d+)[-\/](\d+)[-\/](\d+)/;
+    const mathPattern: RegExp = /[0-9+\-*/^()]/;
     var arr;
 
     arr = message.match(addQuestionPattern);
@@ -26,12 +29,40 @@ export const classifyInputMessage = function(message: String) {
 
     arr = message.match(datePattern);
     if (arr) {
-        return {
-            type: "date",
-            question: "",
-            answer: getDayFromDate(arr),
+        try {
+            return {
+                type: "date",
+                question: "",
+                answer: getDayFromDate(arr),
+            };
+        } catch (e: any) {
+            return {
+                type: "falseDate",
+                question: "",
+                answer: e.message,
+            };
         };
     };
+
+    arr = message.match(mathPattern);
+    if (arr) {
+        try {
+            const answer = mathParser(message);
+            console.log("Ini Lolos");
+            return {
+                type: "math",
+                question: "",
+                answer: answer.toString(),
+            };
+        } catch (e: any) {
+            console.log("Ini Gagal");
+            return {
+                type: "falseMath",
+                question: "",
+                answer: e.message,
+            }
+        }
+    }
 
     return {
         type: "unknown",

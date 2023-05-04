@@ -1,16 +1,46 @@
 import React, { useState, useEffect } from "react";
-import Send from "./button/Send";
 import Image from "next/image";
+import { ChatBubbleMessage } from "types";
+import { classifyInputMessage } from "lib/queryClassifier";
 
-const TextInput = () => {
-  const handleSubmit = (e: any) => {
+
+const TextInput = (
+  { setChatBubbles }: { setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>> }
+) => {
+  const handleSubmit = async (e: any)=> {
     e.preventDefault();
-    var formData = new FormData(e.target);
-    const form_values = Object.fromEntries(formData);
-    console.log("form values", form_values);
-    e.value = "";
-  };
+    const message = Object.fromEntries(new FormData(e.target)).question.toString();
+
+    var classifierResponse = classifyInputMessage(message);
+    
+    var response;
+    switch (classifierResponse.type) {
+      case "addQuestion":
+        response = await fetch("/api/question", {
+          method: "POST",
+          body: JSON.stringify({ question: classifierResponse.question, answer: classifierResponse.answer }),
+        })
+        break;
+      case "deleteQuestion":
+        response = await fetch(`/api/question/${encodeURIComponent(classifierResponse.question)}`, {
+          method: "DELETE",
+        })
+        break;
+      case "date":
+      case "falseDate":
+      case "math":
+      case "falseMath":
+        response = new Response(JSON.stringify({ message: classifierResponse.answer }));
+        break;
+      default:
+        response = new Response(JSON.stringify({ message: "Pertanyaan tidak dapat diproses" }))
+    }
+
+    console.log(await response.json());
+  }
+
   const [question, setQuestion] = useState("");
+
   return (
     <div className="absolute top-[87%] left-[3%] w-11/12 h-auto text-silver ">
       <form

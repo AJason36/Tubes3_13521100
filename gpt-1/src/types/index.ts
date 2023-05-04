@@ -12,6 +12,18 @@ export interface ChatMessage {
     timestamp: string;
 };
 
+export interface ChatBubbleMessage {
+    id: number;
+    name: string;
+    message: string;
+}
+
+export interface ClassifierResponse {
+    type: string;
+    question: string;
+    answer: string;
+}
+
 export interface ChatSession {
     id: string;
     name: string;

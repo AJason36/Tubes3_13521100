@@ -14,10 +14,15 @@ const ChatHistory = (Content: any) => {
     Content.setSessions(await response.json());
   };
 
+  const openChatButtonAction = async () => {
+
+  };
+
   return (
     <div className="relative w-[90%] h-[1.875rem] shrink-0">
       <button
         className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100"
+        onClick={openChatButtonAction}
       >
         {Content.title}
       </button>
