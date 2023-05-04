@@ -10,7 +10,7 @@ const MainPage = (
   return (
     <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20%] rounded-[25px] w-[80%] h-screen">
       {chatBubbles.length === 0 ? (
-        <div className="absolute top-[10%] left-[330px] text-[48px] text-right">
+        <div className="relative top-[10%] text-[300%] text-center">
           Welcome to GPT-(-1)!
         </div>
       ) : (
