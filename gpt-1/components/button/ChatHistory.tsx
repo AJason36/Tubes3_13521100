@@ -15,7 +15,7 @@ const ChatHistory = (Content: any) => {
   };
 
   return (
-    <div className="relative w-[17.5rem] h-[1.875rem] shrink-0">
+    <div className="relative w-[90%] h-[1.875rem] shrink-0">
       <button
         className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100"
       >

@@ -16,13 +16,13 @@ const Clear = ({ setSessions }: { setSessions: React.Dispatch<React.SetStateActi
     };
     
     return (
-        <div className="absolute top-[31.875rem] left-[1.125rem] w-[17.8rem] h-11">
+        <div className="absolute top-[70%] left-[1.5%] w-[95%] h-11 items-center justify-center">
             <button
-                className="absolute top-[0px] left-[0px] rounded-[10px] w-[285px] h-11 hover:bg-[#8a1f1f] bg-[#E93131]"
+                className="relative top-[0px] left-[0px] rounded-[10px] w-[18%] h-11 hover:bg-[#8a1f1f] bg-[#E93131]"
                 type="button"
                 onClick={clearAllButtonAction}
             >
-                <div className="absolute top-[13px] left-[114px] font-semibold">
+                <div className="relative font-semibold">
                     Clear All
                 </div>
             </button>
