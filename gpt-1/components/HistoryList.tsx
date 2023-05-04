@@ -11,7 +11,7 @@ const HistoryList = ({sessions, setSessions}: { sessions: ChatSession[], setSess
         <div className="relative font-medium">Chat List</div>
         <div className="flex flex-col items-start max-h-[20rem] justify-start gap-[2rem] text-[0.75rem] text-lightgray-200 overflow-y-auto space-y-1 scrollbar-hide">
           {sessions.map((session) => (
-            <ChatHistory key={session.id} title={session.name} />
+            <ChatHistory key={session.id} id={session.id} title={session.name} setSessions={setSessions} />
           ))}
         </div>
       </div>

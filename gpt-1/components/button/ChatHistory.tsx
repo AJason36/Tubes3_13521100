@@ -2,16 +2,33 @@
 import React from "react";
 
 const ChatHistory = (Content: any) => {
+  const deleteChatButtonAction = async () => {    
+    var response = await fetch(`/api/session/${encodeURIComponent(Content.id)}`, {
+      method: 'DELETE',
+    });
+
+    response = await fetch("/api/session", {
+      method: "GET",
+    });
+
+    Content.setSessions(await response.json());
+  };
+
   return (
     <div className="relative w-[17.5rem] h-[1.875rem] shrink-0">
-      <button className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100">
+      <button
+        className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100"
+      >
         {Content.title}
       </button>
       <div className="absolute top-[2rem] left-[2.2rem] font-light">
         {Content.date}
       </div>
       {/* delete button */}
-      <button className="absolute h-[50%] w-[8%] top-[8%] right-[0%] bottom-[55.82%] left-[94.79%] ">
+      <button
+        className="absolute h-[50%] w-[8%] top-[8%] right-[0%] bottom-[55.82%] left-[94.79%]"
+        onClick={deleteChatButtonAction}
+      >
         <img
           className="max-w-full overflow-hidden max-h-full"
           alt=""
