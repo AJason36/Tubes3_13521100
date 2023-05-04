@@ -16,12 +16,15 @@ export async function GET(req: Request) {
 // Contoh Cara Manggil:
 // const response = await fetch('/api/session', {
 //     method: 'POST',
+//     body: JSON.stringify({ num: <number> }),
 // })
 export async function POST(req: Request) {
+    const { num } = await req.json();
+
     try {
         await db.chatSession.create({
             data: {
-                name: "New Chat",
+                name: "Chat " + num,
             },
         });
 
@@ -36,4 +39,13 @@ export async function POST(req: Request) {
     }
 }
 
+// Delete All Sessions
+// Contoh Cara Manggil:
+// const response = await fetch('/api/session', {
+//     method: 'DELETE',
+// });
+export async function DELETE(req: Request) {
+    await db.chatSession.deleteMany();
 
+    return new Response(JSON.stringify({ message: "Semua chat berhasil dihapus" }));
+}
