@@ -1,5 +1,7 @@
 import { MaxPriorityQueue } from "@datastructures-js/priority-queue";
 import { levenshteinSimilarity } from "./string-similarity";
+import kmp from "./kmp";
+import bm from "./bm";
 
 type PQItem = {
     // Container for the priority queue item
@@ -7,19 +9,33 @@ type PQItem = {
     similarity: number;
 }
 
-function getMostSimilarString(input: string, data: string[]) {
+function getMostSimilarString(input: string, data: string[], mode: string) {
 /* 
     Function to get the most similar string from an array of strings
     Output format: Array of length 2
-    [0]: Array of strings (1 if similarity >= 0.9, otherwise maximum of 5 strings)
+    [0]: Array of strings (1 if similarity >= 0.9, otherwise maximum of 3 strings)
     [1]: Boolean, true if the most similar string is >= 0.9, otherwise false
 */
 
     // If there is no data, return empty array
     if (data.length === 0) return [];
 
+    // Check with exact pattern match
+    let exactResult: string[]
+    if (mode.toLowerCase() === "kmp") {
+        exactResult = kmp(input, data)
+    }
+    else if (mode.toLowerCase() === "bm") {
+        exactResult = bm(input, data)
+    }
+    else throw Error("mode unknown, possible values are \"kmp\", \"bm\"")
+
+    // If only one exact match: return value
+    if (exactResult.length === 1) 
+        return [exactResult, true]
+
     // Create a priority queue to sort the strings by similarity
-    const pq = new MaxPriorityQueue<PQItem>();
+    const pq = new MaxPriorityQueue<PQItem>((value) => value.similarity);
     for (const string of data) {
         var similarity: number = levenshteinSimilarity(input.toLowerCase(), string.toLowerCase());
         pq.enqueue({ string, similarity });
@@ -31,7 +47,7 @@ function getMostSimilarString(input: string, data: string[]) {
         ret[0].push(pq.dequeue().string);
         ret[1] = true;
     } else {
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 3; index++) {
             if (pq.size() === 0) break;
             ret[0].push(pq.dequeue().string);
         }

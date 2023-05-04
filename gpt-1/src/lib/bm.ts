@@ -25,7 +25,6 @@ const bm = function(pattern: string, questions: string[]): string[] {
         let i = pattern.length - 1
         let j = i
         while (i < question.length) {
-            console.log(i  + " " + j)
             if (pattern.charAt(j) === question.charAt(i)) {
                 if (j == 0) {
                     ret.push(question)
@@ -35,7 +34,7 @@ const bm = function(pattern: string, questions: string[]): string[] {
                 j--
             }
             else {
-                i += pattern.length - j - 2 + pattern.length - lastOcc[question.charCodeAt(i)]
+                i += Math.max(1, 2 * pattern.length - j - 2 - lastOcc[question.charCodeAt(i)])
                 j = pattern.length - 1
             }
         }
@@ -43,4 +42,5 @@ const bm = function(pattern: string, questions: string[]): string[] {
     return ret
 }
 
-console.log(bm("abc", ["abdabcd", "ababab", "abc", "cab"]))
+// console.log(bm("abc", ["abdabcd", "ababab", "abc", "cab"]))
+export default bm
