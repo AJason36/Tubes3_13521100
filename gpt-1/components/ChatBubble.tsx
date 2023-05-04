@@ -10,7 +10,7 @@ const ChatBubble = (message:any) => {
     }
     return (  
         <div className={`py-5 text-white ${!isChatGPT && "bg-[#24284F]"}`}>
-            <div className="flex space-x-5 px-2 max-w-4xl mx-auto">
+            <div className="flex space-x-3 px-1 max-w-[80%] mx-auto">
                 <img src={avatar}
                     alt="" className="h-8 w-8 rounded-sm" />
                 <p className="pt-1 text-md font-medium">{message.text}</p>
