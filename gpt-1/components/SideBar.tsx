@@ -6,7 +6,9 @@ import HistoryList from "./HistoryList";
 import Radio from "./button/Radio";
 import { ChatSession } from "types";
 
-const SideBar = () => {
+const SideBar = (
+    { setMode } : { setMode: React.Dispatch<React.SetStateAction<string | undefined>> }
+) => {
     const [sessions, setSessions] = useState<ChatSession[]>([]);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const SideBar = () => {
             <>
             <Clear setSessions={setSessions} />
             </>
-            <Radio/>
+            <Radio setMode={setMode}/>
         </div>
     );
 }

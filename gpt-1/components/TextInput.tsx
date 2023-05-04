@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChatBubbleMessage } from "types";
 import { classifyInputMessage } from "lib/queryClassifier";
+import getMostSimilarString from "lib/utilities";
+import { db } from "lib/db";
 
 
 const TextInput = (
-  { setChatBubbles }: { setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>> }
+  { setChatBubbles, mode }: { setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>, mode: string | undefined },
 ) => {
   const handleSubmit = async (e: any)=> {
     e.preventDefault();
@@ -33,7 +35,32 @@ const TextInput = (
         response = new Response(JSON.stringify({ message: classifierResponse.answer }));
         break;
       default:
-        response = new Response(JSON.stringify({ message: "Pertanyaan tidak dapat diproses" }))
+        try {
+          if (mode === undefined) throw new Error("Mode is undefined");
+          
+          const dbResponse = await fetch("/api/question", {
+            method: "GET",
+          });
+          const data = await dbResponse.json();
+
+          const funcResponse = getMostSimilarString(message, data.map((q: any) => q.question), mode);
+          
+          if (funcResponse[1]) {
+            response = new Response(JSON.stringify({ message: data.find((d: any) => d.question.toLowerCase() === funcResponse[0][0]).answer }));
+          } else {
+            if (funcResponse[0].length > 0) {
+              let respMessage = "Pertanyaan tidak ada di database.\nApakah yang anda maksud adalah:\n";
+              for (let i = 0; i < funcResponse[0].length; i++) {
+                respMessage += `${i + 1}. ${funcResponse[0][i]}\n`;
+              }
+              response = new Response(JSON.stringify({ message: respMessage }));
+            } else {
+              response = new Response(JSON.stringify({ message: "Question Data is Empty or No Similar Question" }));
+            }
+          }
+        } catch (e: any) {
+          response = new Response(JSON.stringify({ message: e.message }));
+        }
     }
 
     console.log(await response.json());

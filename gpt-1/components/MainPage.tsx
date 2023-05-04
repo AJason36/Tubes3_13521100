@@ -5,7 +5,7 @@ import { ChatBubbleMessage } from "types";
 
 
 const MainPage = (
-  { chatBubbles, setChatBubbles }: { chatBubbles: ChatBubbleMessage[]; setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>}
+  { chatBubbles, setChatBubbles, mode }: { chatBubbles: ChatBubbleMessage[]; setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>, mode: string | undefined},
 ) => {
   return (
     <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20%] rounded-[25px] w-[80%] h-screen">
@@ -26,7 +26,7 @@ const MainPage = (
         </div>
       )}
       {/* TEXT BOX */}
-      <TextInput setChatBubbles={setChatBubbles} />
+      <TextInput setChatBubbles={setChatBubbles} mode={mode} />
     </div>
   );
 };

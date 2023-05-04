@@ -11,13 +11,14 @@ import { ChatBubbleMessage } from 'types';
 
 
 const ChatGPT: NextPage = () => {
-  const [chatBubbles, setChatBubbles] = useState<ChatBubbleMessage[]>([])
+  const [chatBubbles, setChatBubbles] = useState<ChatBubbleMessage[]>([]);
+  const [mode, setMode] = useState<string>();
 
   return (
     <>
       <div className="relative bg-[#1A1B24] w-full h-screen overflow-hidden text-left text-sm text-white font-inter">
-      <SideBar/>
-      <MainPage chatBubbles={chatBubbles} setChatBubbles={setChatBubbles} />
+      <SideBar setMode={setMode} />
+      <MainPage chatBubbles={chatBubbles} setChatBubbles={setChatBubbles} mode={mode} />
       </div>
     </>
   );

@@ -9,7 +9,7 @@ type PQItem = {
     similarity: number;
 }
 
-function getMostSimilarString(input: string, data: string[], mode: string) {
+function getMostSimilarString(input: string, data: string[], mode: string): [string[], boolean] {
 /* 
     Function to get the most similar string from an array of strings
     Output format: Array of length 2
@@ -18,7 +18,7 @@ function getMostSimilarString(input: string, data: string[], mode: string) {
 */
 
     // If there is no data, return empty array
-    if (data.length === 0) return [];
+    if (data.length === 0) return [[], false];
 
     // Check with exact pattern match
     let exactResult: string[]
@@ -48,7 +48,7 @@ function getMostSimilarString(input: string, data: string[], mode: string) {
         ret[1] = true;
     } else {
         for (let index = 0; index < 3; index++) {
-            if (pq.size() === 0) break;
+            if (pq.size() === 0 || pq.front().similarity < 0.6) break;
             ret[0].push(pq.dequeue().string);
         }
     }
