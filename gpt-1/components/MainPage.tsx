@@ -35,7 +35,7 @@ const MainPage = () => {
       )} */}
       
       {/* Chat Area */}
-      <div className="absolute top-[0px] left-[0px] max-h-[85%] w-full overflow-y-auto space-y-1">
+      <div className="absolute top-[0px] left-[0px] max-h-[85%] w-full overflow-y-auto space-y-1 scrollbar-hide">
         {chatData.map((chat, id) => (
           <ChatBubble key={id} name={chat.name} text={chat.message} />
         ))}
