@@ -19,7 +19,7 @@ model ChatMessage {
   response  String
   sessionId String
   timestamp DateTime    @default(now())
-  session   ChatSession @relation(fields: [sessionId], references: [id])
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 
 model ChatSession {
