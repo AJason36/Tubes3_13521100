@@ -2,7 +2,7 @@ import React from "react";
 
 const Radio = () => {
     return (  
-        <div className="absolute top-[580px] left-[18px] w-[280px] h-[113.69px]">
+        <div className="absolute top-[36.25rem] left-[18px] w-[17.5rem] h-[7.125rem]">
             <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
                 <input
                     id="bordered-radio-1"

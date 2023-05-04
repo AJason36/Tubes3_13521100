@@ -27,20 +27,21 @@ const chatData = [
 ];
 const MainPage = () => {
   return (
-    <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[330px] rounded-[25px] w-[1280px] h-screen">
-      {/* before: 936 */}
-
-      {/* <div className="absolute top-[10%] left-[330px] text-[48px] text-right">
+    <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20rem] rounded-[25px] w-[80rem] h-screen">
+      {/* {chatData.empty ? && (
+        <div className="absolute top-[10%] left-[330px] text-[48px] text-right">
         Welcome to GPT-(-1)!
-      </div> */}
+      </div>
+      )} */}
+      
       {/* Chat Area */}
       <div className="absolute top-[0px] left-[0px] max-h-[85%] w-full overflow-y-auto space-y-1">
         {chatData.map((chat, id) => (
           <ChatBubble key={id} name={chat.name} text={chat.message} />
         ))}
       </div>
-      <div className="absolute top-[605px] left-[0px] w-[1280px] h-[114px]">
-        <div className="absolute box-border w-[1280px] h-[1px] shrink-0 border-t-[1px] border-solid border-darkslategray-100" />
+      <div className="absolute top-[38rem] left-[0px] w-[80rem] h-[7rem]">
+        <div className="absolute box-border w-[80rem] h-[1px] shrink-0 border-t-[1px] border-solid border-darkslategray-100" />
       </div>
       {/* TEXT BOX */}
       <TextInput/>

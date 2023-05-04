@@ -23,11 +23,11 @@ const historyData = [
 
 const HistoryList = () => {
     return (  
-        <div className="absolute top-[80px] left-[18px] flex flex-col items-start justify-start gap-[20px] ">
+        <div className="absolute top-[5rem] left-[1rem] flex flex-col items-start justify-start gap-[1.25rem] ">
         <NewChat/>
-        <div className="flex flex-col items-start justify-start gap-[10px] text-[23.55px]">
+        <div className="flex flex-col items-start justify-start gap-[10px] text-[1.5rem]">
           <div className="relative font-medium">Chat List</div>
-          <div className="flex flex-col items-start justify-start gap-[31.4px] text-[11.78px] text-lightgray-200">
+          <div className="flex flex-col items-start justify-start gap-[2rem] text-[0.75rem] text-lightgray-200">
             {historyData.map((chat, id) => (
               <ChatHistory key={id} title={chat.title} date={chat.date} />
             ))}

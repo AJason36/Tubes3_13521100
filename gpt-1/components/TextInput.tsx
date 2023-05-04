@@ -16,7 +16,7 @@ const TextInput = () => {
   return (
     <>
       <div className="absolute top-[38.75rem] left-[3rem] text-silver">
-        <form className="absolute top-[0px] left-[0px] rounded-[10.38px] bg-darkslategray-200 w-[66.25rem] h-[4.25rem] "
+        <form className="absolute top-[0px] left-[0px] rounded-[10px] bg-darkslategray-200 w-[66.25rem] h-[4.25rem] "
               onSubmit={handleSubmit}>
           <div className="mb-4">
             <textarea

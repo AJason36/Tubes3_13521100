@@ -2,11 +2,11 @@ import React from "react";
 
 const ChatHistory = (Content :any) => {
     return (  
-        <div className="relative w-[280px] h-[30px] shrink-0">
-              <button className="absolute top-[0%] left-[35.24px] text-base text-lightgray-100">
+        <div className="relative w-[17.5rem] h-[1.875rem] shrink-0">
+              <button className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100">
                 {Content.title}
               </button>
-              <div className="absolute top-[30.42px] left-[35.24px] font-light">
+              <div className="absolute top-[2rem] left-[2.2rem] font-light">
                 {Content.date}
               </div>
               <img
