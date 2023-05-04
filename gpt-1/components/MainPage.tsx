@@ -8,7 +8,7 @@ const MainPage = (
   { chatBubbles, setChatBubbles }: { chatBubbles: ChatBubbleMessage[]; setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>}
 ) => {
   return (
-    <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20rem] rounded-[25px] w-[80rem] h-screen">
+    <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20%] rounded-[25px] w-[80%] h-screen">
       {chatBubbles.length === 0 ? (
         <div className="absolute top-[10%] left-[330px] text-[48px] text-right">
           Welcome to GPT-(-1)!
@@ -20,8 +20,8 @@ const MainPage = (
               <ChatBubble key={index} name={chat.name} text={chat.message} />
             ))}
           </div>
-          <div className="absolute top-[38rem] left-[0px] w-[80rem] h-[7rem]">
-            <div className="absolute box-border w-[80rem] h-[1px] shrink-0 border-t-[1px] border-solid border-darkslategray-100" />
+          <div className="absolute top-[85%] left-[0px] w-[100%] h-[7rem]">
+            <div className="absolute box-border w-[100%] h-[1px] shrink-0 border-t-[1px] border-solid border-darkslategray-100" />
           </div>
         </div>
       )}
