@@ -1,3 +1,4 @@
+"use client";
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
@@ -8,7 +9,7 @@ import Radio from '../../components/button/Radio';
 import MainPage from '../../components/MainPage';
 import HistoryList from '../../components/HistoryList';
 import SideBar from '../../components/SideBar';
-
+import React,{useState} from 'react';
 
 const ChatGPT: NextPage = () => {
   return (
