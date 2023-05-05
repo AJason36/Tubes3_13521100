@@ -91,11 +91,11 @@ const MainPage = ({
               <ChatBubble key={index} name={chat.name} text={chat.message} />
             ))}
           </div>
+        </div>
+      )}
           <div className="absolute top-[85%] left-[0px] w-[100%] h-[7rem]">
             <div className="absolute box-border w-[100%] h-[1px] shrink-0 border-t-[1px] border-solid border-darkslategray-100" />
           </div>
-        </div>
-      )}
       {/* TEXT BOX */}
       <TextInput
         setSessions={setSessions}
