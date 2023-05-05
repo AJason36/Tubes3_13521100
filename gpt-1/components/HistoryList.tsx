@@ -19,7 +19,7 @@ const HistoryList = (
 ) => {
   return (  
     <>
-      <div className="relative top-[7%] left-[1rem] flex flex-col gap-[1.25rem] w-[90%] ">
+      <div className="relative top-[4%] left-[1rem] flex flex-col gap-[1.25rem] w-[90%] ">
       <NewChat setSessions={setSessions} setSessionId={setSessionId} setChatBubbles={setChatBubbles} />
       <div className="flex flex-col items-start justify-start gap-[2vh] text-[1.5rem]">
         <div className="relative font-medium">Chat List</div>
