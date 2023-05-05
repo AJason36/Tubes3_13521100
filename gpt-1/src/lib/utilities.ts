@@ -28,11 +28,12 @@ function getMostSimilarString(input: string, data: string[], mode: string): [str
     else if (mode.toLowerCase() === "bm") {
         exactResult = bm(input, data)
     }
-    else throw Error("mode unknown, possible values are \"kmp\", \"bm\"")
+    else throw Error("mode unknown, possible values are \"kmp\", \"bm\"");
 
     // If only one exact match: return value
-    if (exactResult.length === 1) 
-        return [exactResult, true]
+    if (exactResult.length === 1) {
+        return [[input], true]
+    }
 
     // If more than one exact match: force to return only matches
     let forceReturn = false
@@ -41,7 +42,6 @@ function getMostSimilarString(input: string, data: string[], mode: string): [str
         forceReturn = true
     }
         
-
     // Create a priority queue to sort the strings by similarity
     const pq = new MaxPriorityQueue<PQItem>((value) => value.similarity);
     for (const string of data) {
