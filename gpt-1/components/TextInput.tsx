@@ -81,7 +81,7 @@ const TextInput = (
       }
   
       const responseBody = await response.json();
-      answer += responseBody.message + ". ";
+      answer += responseBody.message + ".\n";
     }
 
     if (sessionId === undefined) {
