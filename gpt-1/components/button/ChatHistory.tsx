@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { updateChatBubbles } from "app/page";
 import React from "react";
 
 const ChatHistory = (Content: any) => {
@@ -12,10 +13,13 @@ const ChatHistory = (Content: any) => {
     });
 
     Content.setSessions(await response.json());
+    Content.setSessionId(undefined);
+    updateChatBubbles(undefined, Content.setChatBubbles);
   };
 
   const openChatButtonAction = async () => {
-
+    Content.setSessionId(Content.id);
+    updateChatBubbles(Content.id, Content.setChatBubbles);
   };
 
   return (

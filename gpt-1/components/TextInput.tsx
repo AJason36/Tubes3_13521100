@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ChatBubbleMessage } from "types";
+import { ChatBubbleMessage, ChatSession } from "types";
 import { classifyInputMessage } from "lib/queryClassifier";
 import getMostSimilarString from "lib/utilities";
-import { db } from "lib/db";
+import { createNewChat, updateChatBubbles } from "app/page";
 
 
 const TextInput = (
-  { setChatBubbles, mode }: { setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>, mode: string | undefined },
+  { 
+    setSessions,
+    sessionId,
+    setSessionId,
+    chatBubbles,
+    setChatBubbles, 
+    mode 
+  }: { 
+    setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>>,
+    sessionId: string | undefined,
+    setSessionId: React.Dispatch<React.SetStateAction<string | undefined>>,
+    chatBubbles: ChatBubbleMessage[],
+    setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>, 
+    mode: string | undefined 
+  },
 ) => {
   const handleSubmit = async (e: any)=> {
     e.preventDefault();
@@ -63,7 +77,30 @@ const TextInput = (
         }
     }
 
-    console.log(await response.json());
+    const answer = await response.json();
+
+    if (sessionId === undefined) {
+      response = await createNewChat(setSessions, setSessionId);
+      sessionId = response;
+    }
+
+    response = await fetch(`/api/session/${encodeURIComponent(sessionId)}`, {
+      method: 'POST',
+      body: JSON.stringify({ input: message, response: answer.message }),
+    });
+    
+    // const latestId = chatBubbles.length > 0 ? chatBubbles[chatBubbles.length - 1].id : 0;
+    // const newChatBubbles: ChatBubbleMessage[] = [{
+    //   id: latestId + 1,
+    //   name: "User",
+    //   message: message,
+    // }, {
+    //   id: latestId + 2,
+    //   name: "GPT-(-1)",
+    //   message: answer.message,
+    // }];
+
+    updateChatBubbles(sessionId, setChatBubbles);
   }
 
   const [question, setQuestion] = useState("");

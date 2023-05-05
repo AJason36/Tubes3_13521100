@@ -1,32 +1,21 @@
+import { createNewChat, updateChatBubbles } from "app/page";
 import React from "react";
-import { ChatSession } from "types";
+import { ChatSession, ChatBubbleMessage } from "types";
 
-const NewChat = ({ setSessions }: { setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>> }) => {
+const NewChat = (
+  { 
+    setSessions,
+    setSessionId,
+    setChatBubbles,
+  }: { 
+    setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>>,
+    setSessionId: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>,
+  }
+) => {
   const newChatButtonAction = async () => {
-    var response = await fetch("/api/session", {
-      method: "GET",
-    });
-
-    const data: ChatSession[] = await response.json();
-    var newChatNumber : number;
-
-    if (data.length === 0) {
-      newChatNumber = 1;
-    } else {
-      newChatNumber = parseInt(data[data.length - 1].name.split(" ")[1]) + 1;
-    }
-
-    await fetch('/api/session', {
-        method: 'POST',
-        body: JSON.stringify({ num: newChatNumber }),
-    })
-
-    response = await fetch("/api/session", {
-      method: "GET",
-    });
-
-    const newSessions: ChatSession[] = await response.json();
-    setSessions(newSessions);
+    const response = createNewChat(setSessions, setSessionId);
+    updateChatBubbles(await response, setChatBubbles);
   };
 
   return (
