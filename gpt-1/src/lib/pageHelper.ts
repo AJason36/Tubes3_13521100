@@ -59,7 +59,7 @@ export const updateChatBubbles = async (
             message: data[i].input,
         }, {
             id: lastId + 2,
-            name: "GPT-(-1)",
+            name: "GPT-1",
             message: data[i].response,
         });
         lastId += 2;
