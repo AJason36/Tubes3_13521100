@@ -25,59 +25,64 @@ const TextInput = (
 ) => {
   const handleSubmit = async (e: any)=> {
     e.preventDefault();
-    const message = Object.fromEntries(new FormData(e.target)).question.toString();
-
-    var classifierResponse = classifyInputMessage(message);
+    const query = Object.fromEntries(new FormData(e.target)).question.toString();
+    const arrMessage = query.split("?");
     
-    var response;
-    switch (classifierResponse.type) {
-      case "addQuestion":
-        response = await fetch("/api/question", {
-          method: "POST",
-          body: JSON.stringify({ question: classifierResponse.question, answer: classifierResponse.answer }),
-        })
-        break;
-      case "deleteQuestion":
-        response = await fetch(`/api/question/${encodeURIComponent(classifierResponse.question)}`, {
-          method: "DELETE",
-        })
-        break;
-      case "date":
-      case "falseDate":
-      case "math":
-      case "falseMath":
-        response = new Response(JSON.stringify({ message: classifierResponse.answer }));
-        break;
-      default:
-        try {
-          if (mode === undefined) throw new Error("Mode is undefined");
-          
-          const dbResponse = await fetch("/api/question", {
-            method: "GET",
-          });
-          const data = await dbResponse.json();
-
-          const funcResponse = getMostSimilarString(message, data.map((q: any) => q.question), mode);
-          
-          if (funcResponse[1]) {
-            response = new Response(JSON.stringify({ message: data.find((d: any) => d.question.toLowerCase() === funcResponse[0][0]).answer }));
-          } else {
-            if (funcResponse[0].length > 0) {
-              let respMessage = "Pertanyaan tidak ada di database.\nApakah yang anda maksud adalah:\n";
-              for (let i = 0; i < funcResponse[0].length; i++) {
-                respMessage += `${i + 1}. ${funcResponse[0][i]}\n`;
-              }
-              response = new Response(JSON.stringify({ message: respMessage }));
+    var answer = "";
+    for (var message of arrMessage) {
+      if (message == "") continue;
+      var classifierResponse = classifyInputMessage(message);
+      
+      var response;
+      switch (classifierResponse.type) {
+        case "addQuestion":
+          response = await fetch("/api/question", {
+            method: "POST",
+            body: JSON.stringify({ question: classifierResponse.question, answer: classifierResponse.answer }),
+          })
+          break;
+        case "deleteQuestion":
+          response = await fetch(`/api/question/${encodeURIComponent(classifierResponse.question)}`, {
+            method: "DELETE",
+          })
+          break;
+        case "date":
+        case "falseDate":
+        case "math":
+        case "falseMath":
+          response = new Response(JSON.stringify({ message: classifierResponse.answer }));
+          break;
+        default:
+          try {
+            if (mode === undefined) throw new Error("Mode is undefined");
+            
+            const dbResponse = await fetch("/api/question", {
+              method: "GET",
+            });
+            const data = await dbResponse.json();
+  
+            const funcResponse = getMostSimilarString(message, data.map((q: any) => q.question), mode);
+            if (funcResponse[1]) {
+              response = new Response(JSON.stringify({ message: data.find((d: any) => d.question === funcResponse[0][0]).answer }));
             } else {
-              response = new Response(JSON.stringify({ message: "Question Data is Empty or No Similar Question" }));
+              if (funcResponse[0].length > 0) {
+                let respMessage = "Pertanyaan tidak ada di database.\nApakah yang anda maksud adalah:\n";
+                for (let i = 0; i < funcResponse[0].length; i++) {
+                  respMessage += `${i + 1}. ${funcResponse[0][i]}\n`;
+                }
+                response = new Response(JSON.stringify({ message: respMessage }));
+              } else {
+                response = new Response(JSON.stringify({ message: "Question Data is Empty or No Similar Question" }));
+              }
             }
+          } catch (e: any) {
+            response = new Response(JSON.stringify({ message: e.message }));
           }
-        } catch (e: any) {
-          response = new Response(JSON.stringify({ message: e.message }));
-        }
+      }
+  
+      const responseBody = await response.json();
+      answer += responseBody.message + ". ";
     }
-
-    const answer = await response.json();
 
     if (sessionId === undefined) {
       response = await createNewChat(setSessions, setSessionId);
@@ -86,19 +91,8 @@ const TextInput = (
 
     response = await fetch(`/api/session/${encodeURIComponent(sessionId)}`, {
       method: 'POST',
-      body: JSON.stringify({ input: message, response: answer.message }),
+      body: JSON.stringify({ input: query, response: answer }),
     });
-    
-    // const latestId = chatBubbles.length > 0 ? chatBubbles[chatBubbles.length - 1].id : 0;
-    // const newChatBubbles: ChatBubbleMessage[] = [{
-    //   id: latestId + 1,
-    //   name: "User",
-    //   message: message,
-    // }, {
-    //   id: latestId + 2,
-    //   name: "GPT-(-1)",
-    //   message: answer.message,
-    // }];
 
     updateChatBubbles(sessionId, setChatBubbles);
     setQuestion("");

@@ -64,7 +64,7 @@ export const updateChatBubbles = async (
         });
         lastId += 2;
     }
-  
+
     setChatBubbles(newChatBubbles);
 }
   
