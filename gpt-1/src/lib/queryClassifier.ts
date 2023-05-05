@@ -36,11 +36,7 @@ export const classifyInputMessage = function(message: string): ClassifierRespons
                 answer: getDayFromDate(arr),
             };
         } catch (e: any) {
-            return {
-                type: "falseDate",
-                question: "",
-                answer: e.message,
-            };
+            // Do nothing, try next feature
         };
     };
 
@@ -55,12 +51,7 @@ export const classifyInputMessage = function(message: string): ClassifierRespons
                 answer: answer.toString(),
             };
         } catch (e: any) {
-            console.log("Ini Gagal");
-            return {
-                type: "falseMath",
-                question: "",
-                answer: e.message,
-            }
+            // Do nothing, try next feature
         }
     }
 
