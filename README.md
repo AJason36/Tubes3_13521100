@@ -1,14 +1,49 @@
 # Tubes3_13521100
 Tubes 3 String Matching dan Regular Expression - IF2211 Strategi Algoritma
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## **Table of Contents**
+* [General Information](#general-information)
+* [Requirements](#requirements)
+* [How to Run and Compile](#how-to-run-and-compile)
+* [Screenshot](#screenshot)
+* [Features](#features)
+* [Authors](#authors)
 
-## Getting Started
-```bash
-cd gpt-1
+## **General Information**
+>Web-based application simple ChatGPT by applying the simplest QA approach. The search for the most similar question to the question given by the user is done using the Knuth-Morris-Pratt (KMP) and Boyer-Moore (BM) string matching algorithms. Regex is used to determine the format of the question. If there is no exact match between the user's question and the questions in the database through the KMP or BM algorithms, then the chatbot will use the most similar question with at least 90% similarity. If there is no question with a similarity above 90%, then the chatbot will provide a maximum of 3 options for the most similar questions to be selected by the user. This application use NextJs as fullstack framework
+
+## **Requirements**
+To use this program, you will need to install **npm**. 
+Change the directory to the 'gpt-1' folder <br>
+```sh 
+$ cd gpt-1
 ```
-First, run the development server:
+then install npm
+```sh
+$ npm install
+```
+| Aspect    | Required Program | Reference Link                            |
+|-----------|------------------|-------------------------------------------|
+| Backend   | NextJS           | [NextJS](https://nextjs.org/)             |
+|           | Prisma           | [Prisma](https://www.prisma.io/)          |
+|           | PostgreSQL       | [PostgreSQL](https://www.postgresql.org/) |
+| Frontend  | NextJS           | [NextJS](https://nextjs.org/)             |
+|           | Tailwind         | [Tailwind](https://tailwindcss.com/)      |
 
+## **How to Run and Compile**
+### **Setup**
+1. Clone this repository <br>
+```sh 
+$ git clone https://github.com/AJason36/Tubes3_13521100
+```
+2. Open this repository in terminal
+### **Run (Local Host)**
+1. Change the directory to the 'gpt-1' folder <br>
+```sh 
+$ cd gpt-1
+```
+
+2. Run the development server:
 ```bash
 npm run dev
 # or
@@ -17,25 +52,30 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### **Run (Server)**
+1. Open [https://gpt-1-nu.vercel.app/](https://gpt-1-nu.vercel.app/)
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+## **Screenshot**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Main Page
+<img src="doc/main-page.jpg"> 
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## **Features**
+| Features                                               |
+|--------------------------------------------------------|
+| Adding questions and answers to database               |
+| Removing questions and answers to database             |
+| Mathematical calculation queries                       |
+| Date-related queries                                   |
+| Queries with multiple questions and multiple answers	 |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## **Authors**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| **NIM**  |       **Name**        | **Class**  |       
+| :------: | :-------------------: | :------:   | 
+| 13521100 |    Alexander Jason    | K02
+| 13521114 |  Farhan Nabil Suryono | K02
+| 13521137 |      Michael Utama    | K02
