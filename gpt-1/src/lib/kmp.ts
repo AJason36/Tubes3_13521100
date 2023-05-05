@@ -39,7 +39,8 @@ const kmp = function(pattern: string, questions: string[]): string[] {
                     j = borderArray[j-1]
                 }
             }
-            j++
+            if (question[i] === pattern[j]) 
+                j++
         }
     }
 
