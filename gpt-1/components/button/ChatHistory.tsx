@@ -23,19 +23,19 @@ const ChatHistory = (Content: any) => {
   };
 
   return (
-    <div className="relative w-[90%] h-[1.875rem] shrink-0">
+    <div className="relative w-[90%] h-[1.875rem] rounded-[5px] p-3 hover:bg-slate-600 shrink-0">
       <button
         className="absolute top-[0%] left-[2.2rem] text-base text-lightgray-100"
         onClick={openChatButtonAction}
       >
         {Content.title}
       </button>
-      <div className="absolute top-[2rem] left-[2.2rem] font-light">
+      {/* <div className="absolute top-[2rem] left-[2.2rem] font-light">
         {Content.date}
-      </div>
+      </div> */}
       {/* delete button */}
       <button
-        className="absolute h-[50%] w-[8%] top-[8%] right-[0%] bottom-[55.82%] left-[94.79%]"
+        className="absolute h-[50%] w-[8%] top-[15%] right-[0%] bottom-[55.82%] left-[90%]"
         onClick={deleteChatButtonAction}
       >
         <img
@@ -45,7 +45,7 @@ const ChatHistory = (Content: any) => {
         />
       </button>
       <img
-        className="absolute h-[50%] w-[8%] top-[10%] right-[93.63%] bottom-[51.4%] left-[0%] max-w-full overflow-hidden max-h-full"
+        className="absolute h-[50%] w-[8%] top-[10%] right-[93.63%] bottom-[51.4%] left-[2%] max-w-full overflow-hidden max-h-full"
         alt=""
         src="/assets/chat.svg"
       />
