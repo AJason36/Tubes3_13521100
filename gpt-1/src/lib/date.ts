@@ -12,8 +12,11 @@ export const getDayFromDate = function(arr: any): string {
         "Jumat",
         "Sabtu"
     ]
-    if (arr && arr.length >= 4 && arr[1] && arr[2] && arr[3])
-        return days[new Date(Number.parseInt(arr[3]), Number.parseInt(arr[2]) - 1, Number.parseInt(arr[1])).getDay()] ?? 'undefined'
+    if (arr[1].trim() !== "" || arr[5].trim() !== "") 
+        throw Error('Wrong date format')
+        
+    if (arr && arr.length >= 4 && arr[2] && arr[3] && arr[4])
+        return days[new Date(Number.parseInt(arr[4]), Number.parseInt(arr[3]) - 1, Number.parseInt(arr[2])).getDay()] ?? 'undefined'
     throw Error('Wrong date')
 }
 
