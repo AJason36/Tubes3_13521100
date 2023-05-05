@@ -1,11 +1,25 @@
 import React from "react";
 import ChatBubble from "./ChatBubble";
 import TextInput from "./TextInput";
-import { ChatBubbleMessage } from "types";
+import { ChatBubbleMessage, ChatSession } from "types";
 
 
 const MainPage = (
-  { chatBubbles, setChatBubbles }: { chatBubbles: ChatBubbleMessage[]; setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>}
+  {
+    setSessions,
+    sessionId,
+    setSessionId,
+    chatBubbles, 
+    setChatBubbles, 
+    mode 
+  }: { 
+    setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>>,
+    sessionId: string | undefined,
+    setSessionId: React.Dispatch<React.SetStateAction<string | undefined>>,
+    chatBubbles: ChatBubbleMessage[],
+    setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>, 
+    mode: string | undefined
+  },
 ) => {
   return (
     <div className="absolute items-center justify-center bg-[#1C1E32] top-[0%] left-[20%] rounded-[25px] w-[80%] h-screen">
@@ -26,7 +40,7 @@ const MainPage = (
         </div>
       )}
       {/* TEXT BOX */}
-      <TextInput setChatBubbles={setChatBubbles} />
+      <TextInput setSessions={setSessions} sessionId={sessionId} setSessionId={setSessionId} chatBubbles={chatBubbles} setChatBubbles={setChatBubbles} mode={mode} />
     </div>
   );
 };

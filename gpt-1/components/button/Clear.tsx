@@ -1,7 +1,18 @@
+import { updateChatBubbles } from "lib/pageHelper";
 import React from "react";
-import { ChatSession } from "types";
+import { ChatSession, ChatBubbleMessage } from "types";
 
-const Clear = ({ setSessions }: { setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>> }) => {
+const Clear = (
+    { 
+        setSessions,
+        setSessionId,
+        setChatBubbles,
+    }: { 
+        setSessions: React.Dispatch<React.SetStateAction<ChatSession[]>>,
+        setSessionId: React.Dispatch<React.SetStateAction<string | undefined>>,
+        setChatBubbles: React.Dispatch<React.SetStateAction<ChatBubbleMessage[]>>,
+    }
+) => {
     const clearAllButtonAction = async () => {
         var response = await fetch('/api/session', {
             method: 'DELETE',
@@ -13,6 +24,8 @@ const Clear = ({ setSessions }: { setSessions: React.Dispatch<React.SetStateActi
     
         const newSessions: ChatSession[] = await response.json();
         setSessions(newSessions);
+        setSessionId(undefined);
+        updateChatBubbles(undefined, setChatBubbles);
     };
     
     return (

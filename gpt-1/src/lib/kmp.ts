@@ -27,7 +27,7 @@ const kmp = function(pattern: string, questions: string[]): string[] {
         question = question.toLowerCase()
 
         let j = 0
-        for (let i = 0; i - j < question.length - pattern.length; i++) {
+        for (let i = 0; i - j <= question.length - pattern.length && i < question.length; i++) {
             if (question[i] === pattern[j]) {
                 if (j === pattern.length - 1) {
                     ret.push(question)
