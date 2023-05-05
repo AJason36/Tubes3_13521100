@@ -101,6 +101,7 @@ const TextInput = (
     // }];
 
     updateChatBubbles(sessionId, setChatBubbles);
+    setQuestion("");
   }
 
   const [question, setQuestion] = useState("");
@@ -123,9 +124,9 @@ const TextInput = (
           />
         </div>
         {/* <Send />  */}
-        <div className="absolute top-3 left-[95%] w-[3.75rem] h-[3.75rem] ">
+        <div className="absolute top-3 left-[95%] w-[3.75rem] h-[3.75rem] items-center justify-center ">
           <button
-            className="absolute rounded-[10px] top-[0px] left-[0px] w-[2.5rem] h-[2.5rem] hover:bg-gray-600"
+            className="relative rounded-[10px] top-[0px] left-[0px] w-[2.5rem] h-[2.5rem] hover:bg-gray-600"
             type="submit"
           >
             <Image
