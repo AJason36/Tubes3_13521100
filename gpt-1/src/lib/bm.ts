@@ -43,4 +43,5 @@ const bm = function(pattern: string, questions: string[]): string[] {
 }
 
 // console.log(bm("abc", ["abdabcd", "ababab", "abc", "cab"]))
+// console.log(bm("p", ["bat", "p"]))
 export default bm
