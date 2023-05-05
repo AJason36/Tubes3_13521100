@@ -34,6 +34,14 @@ function getMostSimilarString(input: string, data: string[], mode: string): [str
     if (exactResult.length === 1) 
         return [exactResult, true]
 
+    // If more than one exact match: force to return only matches
+    let forceReturn = false
+    if (exactResult.length > 1) {
+        data = exactResult
+        forceReturn = true
+    }
+        
+
     // Create a priority queue to sort the strings by similarity
     const pq = new MaxPriorityQueue<PQItem>((value) => value.similarity);
     for (const string of data) {
@@ -47,8 +55,8 @@ function getMostSimilarString(input: string, data: string[], mode: string): [str
         ret[0].push(pq.dequeue().string);
         ret[1] = true;
     } else {
-        for (let index = 0; index < 3; index++) {
-            if (pq.size() === 0 || pq.front().similarity < 0.6) break;
+        for (let index = 0; index < 3 && pq.size() > 0; index++) {
+            if (!forceReturn && pq.front().similarity < 0.6) break;
             ret[0].push(pq.dequeue().string);
         }
     }

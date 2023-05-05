@@ -5,7 +5,7 @@ import mathParser from "./math-string";
 export const classifyInputMessage = function(message: string): ClassifierResponse {
     const addQuestionPattern: RegExp = /^tambahkan pertanyaan (.+) dengan jawaban (.+)$/i;
     const deleteQuestionPattern: RegExp = /^hapus pertanyaan (.+)$/i;
-    const datePattern: RegExp = /(\d+)[-\/](\d+)[-\/](\d+)/;
+    const datePattern: RegExp = /([^\d]*)(\d+)[-\/](\d+)[-\/](\d+)([^\d]*)/;
     const mathPattern: RegExp = /[0-9+\-*/^()]/;
     var arr;
 
@@ -44,7 +44,6 @@ export const classifyInputMessage = function(message: string): ClassifierRespons
     if (arr) {
         try {
             const answer = mathParser(message);
-            console.log("Ini Lolos");
             return {
                 type: "math",
                 question: "",
