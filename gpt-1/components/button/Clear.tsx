@@ -1,4 +1,4 @@
-import { updateChatBubbles } from "app/page";
+import { updateChatBubbles } from "lib/pageHelper";
 import React from "react";
 import { ChatSession, ChatBubbleMessage } from "types";
 

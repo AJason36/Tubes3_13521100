@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { updateChatBubbles } from "app/page";
+import { updateChatBubbles } from "lib/pageHelper";
 import React from "react";
 
 const ChatHistory = (Content: any) => {

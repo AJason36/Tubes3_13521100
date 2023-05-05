@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ChatBubbleMessage, ChatSession } from "types";
 import { classifyInputMessage } from "lib/queryClassifier";
 import getMostSimilarString from "lib/utilities";
-import { createNewChat, updateChatBubbles } from "app/page";
+import { createNewChat, updateChatBubbles } from "lib/pageHelper";
 
 
 const TextInput = (
